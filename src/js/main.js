@@ -3,8 +3,9 @@ import galleryItems from './gallery-items.js';
 const galleryContainer = document.querySelector('.js-gallery');
 const cardsMarkup = createGalleryCardsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-// paletteContainer.addEventListener('click', onPaletteContainerClick);
-console.log(cardsMarkup);
+galleryContainer.addEventListener('click', onGalleryContainerClick);
+
+// console.log(cardsMarkup);
 function createGalleryCardsMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -27,20 +28,21 @@ function createGalleryCardsMarkup(galleryItems) {
     .join('');
 }
 
-// function onPaletteContainerClick(evt) {
-//   const isColorSwatchEl = evt.target.classList.contains('color-swatch');
+function onGalleryContainerClick(e) {
+  const isPictureSelection = e.target.classList.contains('gallery__item');
 
-//   if (!isColorSwatchEl) {
-//     return;
-//   }
+  if (!isPictureSelection) {
+    return;
+  }
+  // console.log(isPictureSelection);
 
-//   const swatchEl = evt.target;
-//   const parentColorCard = swatchEl.closest('.color-card');
+  //   const swatchEl = evt.target;
+  //   const parentColorCard = swatchEl.closest('.color-card');
 
-//   removeActiveCardClass();
-//   addActiveCardClass(parentColorCard);
-//   setBodyBgColor(swatchEl.dataset.hex);
-// }
+  //   removeActiveCardClass();
+  //   addActiveCardClass(parentColorCard);
+  //   setBodyBgColor(swatchEl.dataset.hex);
+}
 
 // function setBodyBgColor(color) {
 //   document.body.style.backgroundColor = color;
