@@ -5,7 +5,6 @@ const cardsMarkup = createGalleryCardsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
-// console.log(cardsMarkup);
 function createGalleryCardsMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -13,7 +12,7 @@ function createGalleryCardsMarkup(galleryItems) {
     <li class="gallery__item">
   <a
     class="gallery__link"
-    href=${original}
+   
   >
     <img
       class="gallery__image"
@@ -27,35 +26,40 @@ function createGalleryCardsMarkup(galleryItems) {
     })
     .join('');
 }
-
+/////////////////////  href=${original}
 function onGalleryContainerClick(e) {
-  const isPictureSelection = e.target.classList.contains('gallery__item');
+  const isPictureSelection = e.target.classList.contains('.gallery__item');
 
   if (!isPictureSelection) {
     return;
   }
-  // console.log(isPictureSelection);
 
-  //   const swatchEl = evt.target;
-  //   const parentColorCard = swatchEl.closest('.color-card');
+  const swatchEl = e.target;
+  const parentImageCard = swatchEl.closest('.gallery__item');
+  console.log(parentImageCard);
 
-  //   removeActiveCardClass();
-  //   addActiveCardClass(parentColorCard);
-  //   setBodyBgColor(swatchEl.dataset.hex);
+  // removeActiveModalClass();
+
+  // addActiveModalClass();
+
+  // openImage(swatchEl.dataset.data.source, swatchEl.dataset.alt);
 }
 
-// function setBodyBgColor(color) {
-//   document.body.style.backgroundColor = color;
-// }
-
-// function removeActiveCardClass() {
-//   const currentActiveCard = document.querySelector('.color-card.is-active');
+// function removeActiveModalClass() {
+//   const currentActiveCard = document.querySelector('.js-lightbox .is-open');
 
 //   if (currentActiveCard) {
-//     currentActiveCard.classList.remove('is-active');
+//     currentActiveCard.classList.remove('is-open');
 //   }
 // }
 
-// function addActiveCardClass(card) {
-//   card.classList.add('is-active');
+// function addActiveModalClass() {
+//   const modalWindow = querySelector('.js-lightbox');
+//   modalWindow.classList.add('is-open');
+// }
+
+// function openImage() {
+//   const bigPicture = document.querySelector('.lightbox__image');
+//   bigPicture.src = swatchEl.dataset.data.source;
+//   bigPicture.alt = swatchEl.dataset.alt;
 // }
