@@ -2,6 +2,12 @@ import galleryItems from './gallery-items.js';
 
 const galleryContainer = document.querySelector('.js-gallery');
 const cardsMarkup = createGalleryCardsMarkup(galleryItems);
+const modalWindow = document.querySelector('.js-lightbox');
+const bigPicture = document.querySelector('.lightbox__image');
+const closeModalBtn = document.querySelector(
+  'button[data-action="close-lightbox"]',
+);
+
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
@@ -12,7 +18,7 @@ function createGalleryCardsMarkup(galleryItems) {
     <li class="gallery__item">
   <a
     class="gallery__link"
-   
+    href=${original}
   >
     <img
       class="gallery__image"
@@ -26,40 +32,45 @@ function createGalleryCardsMarkup(galleryItems) {
     })
     .join('');
 }
-/////////////////////  href=${original}
-function onGalleryContainerClick(e) {
-  const isPictureSelection = e.target.classList.contains('.gallery__item');
 
-  if (!isPictureSelection) {
+function onGalleryContainerClick(e) {
+  e.preventDefault();
+
+  if (e.target === e.currentTarget) {
     return;
   }
 
-  const swatchEl = e.target;
-  const parentImageCard = swatchEl.closest('.gallery__item');
-  console.log(parentImageCard);
+  addActiveModalClass();
 
-  // removeActiveModalClass();
+  openImage(e);
 
-  // addActiveModalClass();
+  window.addEventListener('keydown', handleKeyPress);
+}
+closeModalBtn.addEventListener('click', closeModal);
 
-  // openImage(swatchEl.dataset.data.source, swatchEl.dataset.alt);
+function addActiveModalClass() {
+  modalWindow.classList.add('is-open');
+  console.log('modalWindow');
 }
 
-// function removeActiveModalClass() {
-//   const currentActiveCard = document.querySelector('.js-lightbox .is-open');
+function openImage(e) {
+  bigPicture.src = e.target.dataset.source;
+  bigPicture.alt = e.target.alt;
+  console.log('openImage');
+}
 
-//   if (currentActiveCard) {
-//     currentActiveCard.classList.remove('is-open');
-//   }
-// }
+function handleKeyPress(e) {
+  if (e.code !== 'Escape') {
+    return;
+  }
 
-// function addActiveModalClass() {
-//   const modalWindow = querySelector('.js-lightbox');
-//   modalWindow.classList.add('is-open');
-// }
+  console.log('handleKeyPress');
+  closeModal();
+}
 
-// function openImage() {
-//   const bigPicture = document.querySelector('.lightbox__image');
-//   bigPicture.src = swatchEl.dataset.data.source;
-//   bigPicture.alt = swatchEl.dataset.alt;
-// }
+function closeModal() {
+  modalWindow.classList.remove('is-open');
+  bigPicture.src = '';
+  bigPicture.alt = '';
+  window.removeEventListener('keydown', handleKeyPress);
+}
