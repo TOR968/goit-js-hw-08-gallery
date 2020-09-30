@@ -45,8 +45,8 @@ function onGalleryContainerClick(e) {
   openImage(e);
 
   window.addEventListener('keydown', handleKeyPress);
+  closeModalBtn.addEventListener('click', closeModal);
 }
-closeModalBtn.addEventListener('click', closeModal);
 
 function addActiveModalClass() {
   modalWindow.classList.add('is-open');
@@ -73,4 +73,7 @@ function closeModal() {
   bigPicture.src = '';
   bigPicture.alt = '';
   window.removeEventListener('keydown', handleKeyPress);
+  closeModalBtn.removeEventListener('click', closeModal);
+
+  console.log('closeModal');
 }
